@@ -19,9 +19,13 @@ namespace PetShop
             InitializeComponent();
         }
 
-        
-        
 
+
+        /// <summary>
+        /// carga los datos de los productos de tipo Limpieza en el DataGridView  y le da valores a los combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmStockLimpieza_Load(object sender, EventArgs e)
         {
             Producto prodAux;
@@ -43,6 +47,13 @@ namespace PetShop
 
         }
 
+
+        /// <summary>
+        /// Si se apreto el boton agregar , crea un nuevo producto del tipo Limpieza
+        /// sino edita los valores de producto  seleccionado en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_stock_Click(object sender, EventArgs e)
         {
 
@@ -83,10 +94,14 @@ namespace PetShop
                 FrmInicio.playerError.Play();
             }
         }
-        
 
-    
 
+
+        /// <summary>
+        /// vacia los controles y permite crear y agregar a la lista un nuevo elemento
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected override void btn_agregar_Click(object sender, EventArgs e)
         {
             base.btn_agregar_Click(sender, e);
@@ -94,6 +109,12 @@ namespace PetShop
 
         }
 
+
+        /// <summary>
+        /// Borra la el producto seleccionado en el DataGridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_borrar_Click(object sender, EventArgs e)
         {
 
@@ -127,6 +148,13 @@ namespace PetShop
 
         }
 
+
+
+        /// <summary>
+        /// Cargo los datos de la fila seleccionada en los controles correspondientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgv_productos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 

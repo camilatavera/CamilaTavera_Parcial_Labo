@@ -18,6 +18,12 @@ namespace PetShop
             InitializeComponent();
         }
 
+
+        /// <summary>
+        /// carga los datos de los productos de tipo Juguete en el DataGridView  y le da valores a los combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmStockJuguete_Load(object sender, EventArgs e)
         {
             Producto prodAux;
@@ -38,6 +44,13 @@ namespace PetShop
             this.cmb_extra.DataSource = Enum.GetValues(typeof(EMaterial));
         }
 
+
+
+        /// <summary>
+        /// Cargo los datos de la fila seleccionada en los controles correspondientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgv_productos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             Producto actualProducto;
@@ -68,6 +81,13 @@ namespace PetShop
             }
         }
 
+
+
+        /// <summary>
+        /// Borra la el Juguete seleccionado en el DataGridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_borrar_Click(object sender, EventArgs e)
         {
             Producto actualProducto;
@@ -99,6 +119,12 @@ namespace PetShop
             }
         }
 
+
+        /// <summary>
+        /// vacia los controles y permite crear y agregar a la lista un nuevo elemento
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_agregar_Click_1(object sender, EventArgs e)
         {
             base.btn_agregar_Click(sender, e);
@@ -106,6 +132,13 @@ namespace PetShop
             
         }
 
+
+        /// <summary>
+        /// Si se apreto el boton agregar , crea un nuevo producto del tipo Juguete
+        /// sino edita los valores del Juguete seleccionado en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_stock_Click(object sender, EventArgs e)
         {
             Juguete nuevoProd;

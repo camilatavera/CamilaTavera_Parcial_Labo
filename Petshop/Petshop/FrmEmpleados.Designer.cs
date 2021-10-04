@@ -246,6 +246,7 @@ namespace PetShop
             this.dgv_empleados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_empleados.Size = new System.Drawing.Size(471, 357);
             this.dgv_empleados.TabIndex = 24;
+            this.dgv_empleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_empleados_CellClick);
             // 
             // col_id
             // 

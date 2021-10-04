@@ -37,6 +37,12 @@ namespace PetShop
         }
 
 
+
+        /// <summary>
+        /// carga los datos de las ventas en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmVentas_Load(object sender, EventArgs e)
         {
             Venta auxVenta;
@@ -49,6 +55,12 @@ namespace PetShop
             }
         }
 
+
+        /// <summary>
+        /// si corresponde le da un nuevo valor al atributo estatico idActual con el id de la venta seleccionada
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgv_ventas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             IndexRow = e.RowIndex;
@@ -64,6 +76,12 @@ namespace PetShop
 
         }
 
+
+        /// <summary>
+        /// Abre un neuvo form pasandole como parametro el id de la venta seleccionada en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_verFactura_Click(object sender, EventArgs e)
         {
             if (IdActual != 0)

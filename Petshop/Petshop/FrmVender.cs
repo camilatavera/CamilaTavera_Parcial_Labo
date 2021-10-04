@@ -69,7 +69,7 @@ namespace PetShop
         /// <param name="e"></param>
         private void btn_agregar_Click(object sender, EventArgs e)
         {
-            FrmInicio.playerError.Play();
+           
             Pedido pedidoIngresado;
             
 
@@ -123,7 +123,7 @@ namespace PetShop
                         productoEnCopy.Cantidad += (int)dgv_carrito[col_cantidad.Index, IndexRow].Value;
                     }
                 }
-                Total -= (int)dgv_carrito[col_precio.Index, IndexRow].Value;
+                Total =Total - (int)dgv_carrito[col_precio.Index, IndexRow].Value;
                 dgv_carrito.Rows.RemoveAt(IndexRow);
                 this.txt_monto.Text = Total.ToString();
 
@@ -170,6 +170,11 @@ namespace PetShop
             
         }
 
+        /// <summary>
+        /// Crea una nueva venta si se dan las condiciones correspodientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_vender_Click(object sender, EventArgs e)
         {
 

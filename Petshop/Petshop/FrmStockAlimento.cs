@@ -21,7 +21,11 @@ namespace PetShop
         }
 
 
-
+        /// <summary>
+        /// carga los datos de los productos de tipo Aliemtno en el DataGridView  y le da valores a los combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmStockAlimento_Load(object sender, EventArgs e)
         {
 
@@ -44,6 +48,12 @@ namespace PetShop
 
         }
 
+
+        /// <summary>
+        /// Cargo los datos de la fila seleccionada en los controles correspondientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgv_productos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -76,9 +86,15 @@ namespace PetShop
 
         }
 
+
+        /// <summary>
+        /// Si se apreto el boton agregar , crea un nuevo producto del tipo Alimento
+        /// sino edita los valores del Alimento seleccionado en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_stock_Click(object sender, EventArgs e)
         {
-
 
             Alimento nuevoProd;
             string nombre = txt_producto.Text;
@@ -123,7 +139,11 @@ namespace PetShop
         }
 
 
-
+        /// <summary>
+        /// vacia los controles y permite crear y agregar a la lista un nuevo elemento
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected override void btn_agregar_Click(object sender, EventArgs e)
         {
             base.btn_agregar_Click(sender, e);
@@ -133,7 +153,11 @@ namespace PetShop
 
 
         
-
+        /// <summary>
+        /// borra el alimento seleccionado en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_borrar_Click(object sender, EventArgs e)
         {
 

@@ -38,6 +38,12 @@ namespace PetShop
 
       
 
+
+        /// <summary>
+        /// Vacia todos los controles asociados a los atributos de la clase Producto
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected virtual void btn_agregar_Click(object sender, EventArgs e)
         {
 

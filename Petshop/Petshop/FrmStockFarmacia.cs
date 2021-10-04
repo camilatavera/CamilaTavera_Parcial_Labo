@@ -18,8 +18,12 @@ namespace PetShop
             InitializeComponent();
         }
 
-        
 
+        /// <summary>
+        /// carga los datos de los productos de tipo Farmacia en el DataGridView  y le da valores a los combo box.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmStockFarmacia_Load(object sender, EventArgs e)
         {
             
@@ -42,6 +46,12 @@ namespace PetShop
             
         }
 
+
+        /// <summary>
+        /// Cargo los datos de la fila seleccionada en los controles correspondientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgv_productos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -75,6 +85,15 @@ namespace PetShop
             
         }
 
+
+
+
+
+        /// <summary>
+        /// Borra el producto de tipo Farmacia seleccionado en el DataGridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_borrar_Click(object sender, EventArgs e)
         {
             Producto actualProducto;
@@ -106,6 +125,12 @@ namespace PetShop
             }
         }
 
+
+        /// <summary>
+        /// vacia los controles y permite crear y agregar a la lista un nuevo elemento
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected override void btn_agregar_Click(object sender, EventArgs e)
         {
             base.btn_agregar_Click(sender, e);
@@ -113,6 +138,13 @@ namespace PetShop
 
         }
 
+
+        /// <summary>
+        /// Si se apreto el boton agregar , crea un nuevo producto del tipo Cama
+        /// sino edita los valores de la Cama seleccionada en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_stock_Click(object sender, EventArgs e)
         {
 

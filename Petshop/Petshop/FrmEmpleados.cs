@@ -51,7 +51,7 @@ namespace PetShop
         {
             lbl_pswd.Visible = false;
             txt_pswd.Visible = false;
-            cbox_cargo.Visible = true;
+            cbox_cargo.Visible = false;
 
 
             list_ventas.Items.Clear();
@@ -135,7 +135,7 @@ namespace PetShop
                 long.TryParse(txt_telefono.Text, out telefono) && !string.IsNullOrEmpty(usuario))
             {
                 pswd=txt_pswd.Text;
-                if (IdActual != 0 && !string.IsNullOrEmpty(pswd))
+                if (IdActual ==0 && !string.IsNullOrEmpty(pswd))
                 {
                     if (cbox_cargo.Checked)
                     {
@@ -153,11 +153,20 @@ namespace PetShop
                 else
                 {
                     nuevo = Negocio.buscarEmpleado(IdActual);
-                    nuevo = nuevo.editarEmpleado(nombre, apellido, telefono, fecha, usuario);
-                    this.dgv_empleados.Rows.RemoveAt(IndexRow);
-                    this.dgv_empleados.Rows.Insert(IndexRow, nuevo.Id, nuevo.Apellido,
-                        nuevo.Cargo(), nuevo.calcularCantidadVentas());
+                    if (nuevo != null)
+                    {
+                        nuevo = nuevo.editarEmpleado(nombre, apellido, telefono, fecha, usuario);
+                        this.dgv_empleados.Rows.RemoveAt(IndexRow);
+                        this.dgv_empleados.Rows.Insert(IndexRow, nuevo.Id, nuevo.Apellido,
+                            nuevo.Cargo(), nuevo.calcularCantidadVentas());
+                    }
+                    else
+                    {
+                        FrmInicio.playerError.Play();
+                    }
+
                 }
+                    
             }
             else
             {
