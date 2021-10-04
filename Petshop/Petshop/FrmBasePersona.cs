@@ -12,14 +12,30 @@ namespace PetShop
 {
     public partial class FrmBasePersona : FrmBase
     {
+
+        protected static int indexRow;
+        protected static int idActual;
+
+
+        protected int IndexRow
+        {
+            get { return indexRow; }
+            set { indexRow = value; }
+        }
+
+        protected int IdActual
+        {
+            get { return idActual; }
+            set { idActual = value; }
+        }
+
         public FrmBasePersona()
         {
             InitializeComponent();
         }
 
-        private void btn_stock_Click(object sender, EventArgs e)
-        {
+     
 
-        }
+     
     }
 }

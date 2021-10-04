@@ -30,7 +30,6 @@ namespace PetShop
         private void InitializeComponent()
         {
             this.panel_datos = new System.Windows.Forms.Panel();
-            this.btn_stock = new System.Windows.Forms.Button();
             this.box_fecha = new System.Windows.Forms.DateTimePicker();
             this.lbl_fecha = new System.Windows.Forms.Label();
             this.txt_telefono = new System.Windows.Forms.TextBox();
@@ -39,10 +38,17 @@ namespace PetShop
             this.lbl_apellido = new System.Windows.Forms.Label();
             this.lbl_nombre = new System.Windows.Forms.Label();
             this.txt_nombre = new System.Windows.Forms.TextBox();
+            this.btn_stock = new System.Windows.Forms.Button();
             this.btn_borrar = new System.Windows.Forms.Button();
             this.btn_agregar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_minimizar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).BeginInit();
             this.panel_datos.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // panel_barra
+            // 
+            this.panel_barra.Size = new System.Drawing.Size(858, 35);
             // 
             // panel_datos
             // 
@@ -58,21 +64,6 @@ namespace PetShop
             this.panel_datos.Name = "panel_datos";
             this.panel_datos.Size = new System.Drawing.Size(324, 420);
             this.panel_datos.TabIndex = 18;
-            // 
-            // btn_stock
-            // 
-            this.btn_stock.FlatAppearance.BorderSize = 0;
-            this.btn_stock.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
-            this.btn_stock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_stock.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btn_stock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.btn_stock.Location = new System.Drawing.Point(540, 423);
-            this.btn_stock.Name = "btn_stock";
-            this.btn_stock.Size = new System.Drawing.Size(206, 54);
-            this.btn_stock.TabIndex = 20;
-            this.btn_stock.Text = "Guardar ";
-            this.btn_stock.UseVisualStyleBackColor = false;
-            this.btn_stock.Click += new System.EventHandler(this.btn_stock_Click);
             // 
             // box_fecha
             // 
@@ -154,6 +145,21 @@ namespace PetShop
             this.txt_nombre.Size = new System.Drawing.Size(153, 20);
             this.txt_nombre.TabIndex = 0;
             // 
+            // btn_stock
+            // 
+            this.btn_stock.FlatAppearance.BorderSize = 0;
+            this.btn_stock.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Coral;
+            this.btn_stock.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_stock.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btn_stock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.btn_stock.Location = new System.Drawing.Point(540, 423);
+            this.btn_stock.Name = "btn_stock";
+            this.btn_stock.Size = new System.Drawing.Size(206, 54);
+            this.btn_stock.TabIndex = 20;
+            this.btn_stock.Text = "Guardar ";
+            this.btn_stock.UseVisualStyleBackColor = false;
+
+            // 
             // btn_borrar
             // 
             this.btn_borrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
@@ -195,10 +201,13 @@ namespace PetShop
             this.Controls.Add(this.panel_datos);
             this.Name = "FrmBasePersona";
             this.Text = "FrmBasePersona";
+            this.Controls.SetChildIndex(this.panel_barra, 0);
             this.Controls.SetChildIndex(this.panel_datos, 0);
             this.Controls.SetChildIndex(this.btn_agregar, 0);
             this.Controls.SetChildIndex(this.btn_borrar, 0);
             this.Controls.SetChildIndex(this.btn_stock, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.btn_minimizar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).EndInit();
             this.panel_datos.ResumeLayout(false);
             this.panel_datos.PerformLayout();
             this.ResumeLayout(false);

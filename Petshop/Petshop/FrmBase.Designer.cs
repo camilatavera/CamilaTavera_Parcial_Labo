@@ -29,18 +29,15 @@ namespace PetShop
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBase));
             this.panel_barra = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btn_restaurar = new System.Windows.Forms.PictureBox();
             this.btn_minimizar = new System.Windows.Forms.PictureBox();
-            this.btn_maximizar = new System.Windows.Forms.PictureBox();
             this.btn_cerrar = new System.Windows.Forms.PictureBox();
             this.panel_menu = new System.Windows.Forms.Panel();
             this.panel_barra.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_restaurar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_minimizar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_maximizar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,54 +49,42 @@ namespace PetShop
             this.panel_barra.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_barra.Location = new System.Drawing.Point(0, 0);
             this.panel_barra.Name = "panel_barra";
-            this.panel_barra.Size = new System.Drawing.Size(800, 35);
+            this.panel_barra.Size = new System.Drawing.Size(865, 35);
             this.panel_barra.TabIndex = 9;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btn_restaurar);
             this.panel1.Controls.Add(this.btn_minimizar);
-            this.panel1.Controls.Add(this.btn_maximizar);
             this.panel1.Controls.Add(this.btn_cerrar);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(607, 0);
+            this.panel1.Location = new System.Drawing.Point(665, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(193, 35);
+            this.panel1.Size = new System.Drawing.Size(200, 35);
             this.panel1.TabIndex = 10;
-            // 
-            // btn_restaurar
-            // 
-            this.btn_restaurar.Location = new System.Drawing.Point(76, 0);
-            this.btn_restaurar.Name = "btn_restaurar";
-            this.btn_restaurar.Size = new System.Drawing.Size(49, 35);
-            this.btn_restaurar.TabIndex = 9;
-            this.btn_restaurar.TabStop = false;
-            this.btn_restaurar.Visible = false;
             // 
             // btn_minimizar
             // 
-            this.btn_minimizar.Location = new System.Drawing.Point(12, 0);
+            this.btn_minimizar.Image = global::PetShop.Properties.Resources.btn_min;
+            this.btn_minimizar.Location = new System.Drawing.Point(70, 0);
             this.btn_minimizar.Name = "btn_minimizar";
             this.btn_minimizar.Size = new System.Drawing.Size(49, 35);
+            this.btn_minimizar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.btn_minimizar.TabIndex = 2;
             this.btn_minimizar.TabStop = false;
-            // 
-            // btn_maximizar
-            // 
-            this.btn_maximizar.Location = new System.Drawing.Point(76, 3);
-            this.btn_maximizar.Name = "btn_maximizar";
-            this.btn_maximizar.Size = new System.Drawing.Size(49, 28);
-            this.btn_maximizar.TabIndex = 1;
-            this.btn_maximizar.TabStop = false;
+            this.btn_minimizar.Click += new System.EventHandler(this.btn_minimizar_Click);
             // 
             // btn_cerrar
             // 
+            this.btn_cerrar.AccessibleRole = System.Windows.Forms.AccessibleRole.ButtonDropDownGrid;
+            this.btn_cerrar.BackColor = System.Drawing.Color.Aquamarine;
+            this.btn_cerrar.Image = ((System.Drawing.Image)(resources.GetObject("btn_cerrar.Image")));
             this.btn_cerrar.Location = new System.Drawing.Point(141, 0);
             this.btn_cerrar.Name = "btn_cerrar";
-            this.btn_cerrar.Size = new System.Drawing.Size(49, 35);
-            this.btn_cerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.btn_cerrar.Size = new System.Drawing.Size(45, 38);
+            this.btn_cerrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.btn_cerrar.TabIndex = 0;
             this.btn_cerrar.TabStop = false;
+            this.btn_cerrar.Click += new System.EventHandler(this.btn_cerrar_Click);
             // 
             // panel_menu
             // 
@@ -116,29 +101,25 @@ namespace PetShop
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(26)))), ((int)(((byte)(32)))), ((int)(((byte)(40)))));
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(865, 566);
             this.Controls.Add(this.panel_barra);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FrmBase";
             this.Text = "FrmBase";
             this.panel_barra.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.btn_restaurar)).EndInit();
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btn_minimizar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.btn_maximizar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel_barra;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.PictureBox btn_restaurar;
-        private System.Windows.Forms.PictureBox btn_minimizar;
-        private System.Windows.Forms.PictureBox btn_maximizar;
-        private System.Windows.Forms.PictureBox btn_cerrar;
         private System.Windows.Forms.Panel panel_menu;
+        public System.Windows.Forms.Panel panel_barra;
+        public System.Windows.Forms.PictureBox btn_minimizar;
+        public System.Windows.Forms.PictureBox btn_cerrar;
     }
 }

@@ -14,32 +14,17 @@ namespace PetShop
 {
     public partial class FrmStockAlimento : FrmStockBase
     {
-        
-
-        static int indexRow;
-        static int idActual;
 
         public FrmStockAlimento()
         {
             InitializeComponent();
         }
 
-        public int IndexRow
-        {
-            get { return indexRow; }
-            set { indexRow = value; }
 
-        }
-
-        public int IdActual
-        {
-            get { return idActual; }
-            set { idActual = value; }
-
-        }
 
         private void FrmStockAlimento_Load(object sender, EventArgs e)
         {
+
             Producto prodAux;
             IdActual = 0;
 
@@ -61,43 +46,56 @@ namespace PetShop
 
         private void dgv_productos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (IndexRow != dgv_productos.RowCount - 1)
-            {
-                Negocio.borrarProductoDeStock(IdActual);
-                dgv_productos.Rows.RemoveAt(IndexRow);
-            }
+
             Producto actualProducto;
-            if (dgv_productos.CurrentRow.Index != dgv_productos.RowCount - 1)
+
+            IndexRow = e.RowIndex;
+            if (dgv_productos[col_id.Index, indexRow].Value != null)
             {
-                IdActual = (int)dgv_productos[col_id.Index, dgv_productos.CurrentRow.Index].Value;
+                IdActual = (int)dgv_productos[col_id.Index, indexRow].Value;
+
                 actualProducto = Negocio.buscarProducto(IdActual);
 
-                this.txt_producto.Text = actualProducto.Nombre.ToString();
+                this.txt_producto.Text = actualProducto.Nombre;
                 this.num_precio.Value = (decimal)actualProducto.Precio;
                 this.num_cantidad.Value = (decimal)actualProducto.Cantidad;
                 this.cmb_mascota.SelectedItem = actualProducto.ParaMascota;
                 this.cmb_extra.SelectedItem = ((Alimento)actualProducto).TipoDeAlimento;
                 this.checkBox1.Checked = ((Alimento)actualProducto).EsBalanceado;
-
             }
+            else
+            {
+                IdActual = 0;
+                this.txt_producto.Text = "";
+                this.num_precio.Value = 0;
+                this.num_cantidad.Value = 0;
+                this.cmb_mascota.SelectedIndex = -1;
+                this.cmb_extra.SelectedIndex = -1;
+                this.checkBox1.Checked = false;
+            }
+
         }
 
         private void btn_stock_Click(object sender, EventArgs e)
         {
 
+
             Alimento nuevoProd;
             string nombre = txt_producto.Text;
             int precio = (int)num_precio.Value;
             int cantidad = (int)num_cantidad.Value;
-            Mascota paraMascota = (Mascota)this.cmb_mascota.SelectedItem;
-            TipoAlimento tipoAlimento = (TipoAlimento)this.cmb_extra.SelectedItem;
+            Mascota paraMascota;
+            TipoAlimento tipoAlimento;
             bool esBalanceado = checkBox1.Checked;
 
             Producto prodEditado;
 
 
-            if (!string.IsNullOrEmpty(nombre) && precio > 0 && cantidad > 0)
+            if (!string.IsNullOrEmpty(nombre) && precio > 0 && cantidad > 0 && this.cmb_extra.SelectedItem != null &&
+                this.cmb_mascota.SelectedItem != null)
             {
+                paraMascota = (Mascota)this.cmb_mascota.SelectedItem;
+                tipoAlimento = (TipoAlimento)this.cmb_extra.SelectedItem;
 
                 nuevoProd = new Alimento(nombre, precio, cantidad, paraMascota, esBalanceado, tipoAlimento);
                 if (IndexRow == dgv_productos.RowCount - 1)
@@ -115,24 +113,26 @@ namespace PetShop
                         prodEditado.Cantidad, prodEditado.Precio);
 
                 }
+                FrmInicio.playerBeep.Play();
             }
+            else
+            {
+                FrmInicio.playerError.Play();
+            }
+
         }
 
-    
 
-        private void btn_agregar_Click(object sender, EventArgs e)
+
+        protected override void btn_agregar_Click(object sender, EventArgs e)
         {
-
-            this.txt_producto.Text = "";
-            this.num_precio.Value = 0;
-            this.num_cantidad.Value = 0;
-            this.cmb_mascota.SelectedIndex = -1;
-            this.cmb_extra.SelectedIndex = -1;
-            this.checkBox1.Checked = false;
-
+            base.btn_agregar_Click(sender, e);
             IndexRow = dgv_productos.RowCount - 1;
-
         }
+
+
+
+        
 
         private void btn_borrar_Click(object sender, EventArgs e)
         {
@@ -158,5 +158,7 @@ namespace PetShop
             }
 
         }
+
+       
     }
 }

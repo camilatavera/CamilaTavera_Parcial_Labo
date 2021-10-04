@@ -23,5 +23,35 @@ namespace PetShop
             frmFarmacia.Show();
             this.Close();
         }
+
+        private void btn_limpieza_Click(object sender, EventArgs e)
+        {
+            FrmStockLimpieza frmLimpieza = new FrmStockLimpieza();
+            frmLimpieza.Show();
+            this.Close();
+
+        }
+
+        private void txt_alimentos_Click(object sender, EventArgs e)
+        {
+            FrmStockAlimento frmAlimentos = new FrmStockAlimento();
+            frmAlimentos.Show();
+            this.Close();
+        }
+
+        private void btn_juguetes_Click(object sender, EventArgs e)
+        {
+            FrmStockJuguete frmJuguetes = new FrmStockJuguete();
+            frmJuguetes.Show();
+            this.Close();
+
+        }
+
+        private void btn_camas_Click(object sender, EventArgs e)
+        {
+            FrmStockCama frmCamas= new FrmStockCama();
+            frmCamas.Show();
+            this.Close();
+        }
     }
 }

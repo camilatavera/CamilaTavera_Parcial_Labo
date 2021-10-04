@@ -19,12 +19,20 @@ namespace Entidades
             this.precio = productoComprado.Precio * cantidad;
         }
 
+
+        /// <summary>
+        /// get y set del atributo productoComprado
+        /// </summary>
         public Producto ProductoComprado
         {
             set { productoComprado = value; }
             get { return productoComprado; }
         }
 
+
+        /// <summary>
+        /// get y set del atributo cantidad
+        /// </summary>
         public int Cantidad
         {
             set
@@ -37,12 +45,21 @@ namespace Entidades
             get { return cantidad; }
         }
 
+
+        /// <summary>
+        /// get y set del atributo precio
+        /// </summary>
         public int Precio
         {
             set { precio = this.productoComprado.Precio * Cantidad; }
             get { return precio; }
         }
 
+
+        /// <summary>
+        /// Detalles del pedido
+        /// </summary>
+        /// <returns>string con los detalles</returns>
         public string detallePedido()
         {
             StringBuilder st = new StringBuilder();
@@ -54,11 +71,33 @@ namespace Entidades
         }
 
 
-
+        /// <summary>
+        /// crea una cadena con el nombre, precio, cantidad, y precio total del producto
+        /// </summary>
+        /// <returns>string con los datos mencionados</returns>
         public string detallePedidoList()
         {
-            string ret = $"{this.ProductoComprado.Nombre}  ${this.productoComprado.Precio}*{this.Cantidad} = {this.Precio}";
+            string ret = $"\n {this.ProductoComprado.Nombre}  ${this.productoComprado.Precio}*{this.Cantidad} = {this.Precio}";
             return ret;
+        }
+
+
+
+        /// <summary>
+        /// Muestra detalles del pedido
+        /// </summary>
+        /// <returns>string con los detalles</returns>
+        public string mostrarDetallePedido()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(this.detallePedidoList());
+            sb.AppendFormat("" +
+                "-----------------------------------------------------------------" +
+                "");
+            sb.AppendLine(this.ProductoComprado.mostrarDetalleProducto());
+           
+            return sb.ToString();          
+            
         }
 
 

@@ -18,22 +18,7 @@ namespace PetShop
             InitializeComponent();
         }
 
-        static int indexRow;
-        static int idActual;
-
-        public int IndexRow
-        {
-            get { return indexRow; }
-            set { indexRow = value; }
-
-        }
-
-        public int IdActual
-        {
-            get { return idActual; }
-            set { idActual = value; }
-
-        }
+        
 
         private void FrmStockFarmacia_Load(object sender, EventArgs e)
         {
@@ -76,43 +61,54 @@ namespace PetShop
                 this.cmb_extra.SelectedItem = ((Farmacia)actualProducto).FormaRemedio;
                 this.checkBox1.Checked = ((Farmacia)actualProducto).BajoReceta;
             }
+            else
+            {
+                IdActual = 0;
+                this.txt_producto.Text = "";
+                this.num_precio.Value = 0;
+                this.num_cantidad.Value = 0;
+                this.cmb_mascota.SelectedIndex = -1;
+                this.cmb_extra.SelectedIndex = -1;
+                this.checkBox1.Checked = false;
+            }
             
             
         }
 
         private void btn_borrar_Click(object sender, EventArgs e)
         {
-            
-            if (IndexRow != dgv_productos.RowCount-1)
+            Producto actualProducto;
+            if (IdActual != 0)
             {
                 Negocio.borrarProductoDeStock(IdActual);
                 dgv_productos.Rows.RemoveAt(IndexRow);
-            }
-            Producto actualProducto;
-            if(dgv_productos.CurrentRow.Index != dgv_productos.RowCount - 1)
-            {
-                IdActual = (int)dgv_productos[col_id.Index, dgv_productos.CurrentRow.Index].Value;
-                actualProducto = Negocio.buscarProducto(IdActual);
 
-                this.txt_producto.Text = actualProducto.Nombre.ToString();
-                this.num_precio.Value = (decimal)actualProducto.Precio;
-                this.num_cantidad.Value = (decimal)actualProducto.Cantidad;
-                this.cmb_mascota.SelectedItem = actualProducto.ParaMascota;
-                this.cmb_extra.SelectedItem = ((Farmacia)actualProducto).FormaRemedio;
-                this.checkBox1.Checked = ((Farmacia)actualProducto).BajoReceta;
+                IndexRow = dgv_productos.CurrentRow.Index;
 
+                if (dgv_productos[col_id.Index, IndexRow].Value == null)
+                {
+                    IdActual = 0;
+                }
+                else
+                {
+                    IdActual = (int)dgv_productos[col_id.Index, IndexRow].Value;
+                    actualProducto = IdActual;
+                    if (actualProducto != null)
+                    {
+                        this.txt_producto.Text = actualProducto.Nombre.ToString();
+                        this.num_precio.Value = (decimal)actualProducto.Precio;
+                        this.num_cantidad.Value = (decimal)actualProducto.Cantidad;
+                        this.cmb_mascota.SelectedItem = actualProducto.ParaMascota;
+                        this.cmb_extra.SelectedItem = ((Farmacia)actualProducto).FormaRemedio;
+                        this.checkBox1.Checked = ((Farmacia)actualProducto).BajoReceta;
+                    }
+                }
             }
         }
 
-        private void btn_agregar_Click(object sender, EventArgs e)
+        protected override void btn_agregar_Click(object sender, EventArgs e)
         {
-            this.txt_producto.Text = "";
-            this.num_precio.Value = 0;
-            this.num_cantidad.Value = 0;
-            this.cmb_mascota.SelectedIndex = -1; 
-            this.cmb_extra.SelectedIndex = -1;
-            this.checkBox1.Checked = false;
-
+            base.btn_agregar_Click(sender, e);
             IndexRow = dgv_productos.RowCount - 1;
 
         }
@@ -124,15 +120,18 @@ namespace PetShop
             string nombre = txt_producto.Text;
             int precio = (int)num_precio.Value;
             int cantidad = (int)num_cantidad.Value;
-            Mascota paraMascota = (Mascota)this.cmb_mascota.SelectedItem;
-            TipoRemedio formaRemedio = (TipoRemedio)this.cmb_extra.SelectedItem;
+            Mascota paraMascota;
+            TipoRemedio formaRemedio;
             bool bajoReceta=checkBox1.Checked;
 
             Producto prodEditado;
 
 
-            if(!string.IsNullOrEmpty(nombre) && precio>0 && cantidad > 0)
+            if(!string.IsNullOrEmpty(nombre) && precio>0 && cantidad > 0 && this.cmb_extra.SelectedItem!=null &&
+                this.cmb_mascota.SelectedItem!=null)
             {
+                paraMascota = (Mascota)this.cmb_mascota.SelectedItem;
+                formaRemedio = (TipoRemedio)this.cmb_extra.SelectedItem;
 
                 nuevoProd = new Farmacia(nombre, precio, cantidad, paraMascota, bajoReceta, formaRemedio);
                 if (IndexRow == dgv_productos.RowCount - 1)
@@ -150,6 +149,11 @@ namespace PetShop
                         prodEditado.Cantidad, prodEditado.Precio);
                     
                 }
+                FrmInicio.playerBeep.Play();
+            }
+            else
+            {
+                FrmInicio.playerError.Play();
             }
         }
     }

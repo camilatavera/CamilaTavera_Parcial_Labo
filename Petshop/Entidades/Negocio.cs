@@ -26,8 +26,9 @@ namespace Entidades
             codigoPostal = 1212;
 
             Negocio.listEmpleados = new List<Empleado>(){
-                new Empleado("Camila", "Emple", 112365896, new DateTime(2000, 04, 04), " ", " "),
-                new Administrador("yosi", "Admin", 55522231, new DateTime(2000, 04, 04), "asd", "asd")
+                new Empleado("Susana", "Suarez", 112365896, new DateTime(2000, 04, 04), "susana10", "susas"),
+                new Administrador("Yenifer", "Parker", 55522231, new DateTime(2000, 04, 04), "yenifer10", "yenip"),
+                new Administrador("Tomas", "Rodriguez", 55522231, new DateTime(1985, 04, 04), "tomas10", "tomr")
             };
 
             listProductos = new List<Producto>()
@@ -51,7 +52,7 @@ namespace Entidades
                 new Cliente("Roberto", "Sanchez", 456328569, new DateTime(1995, 8, 5), 200),
                 new Cliente("Maria", "Lopez", 11238373, new DateTime(2001, 2, 5), 5000)
             };
-           
+
 
             List<Pedido> list1 = new List<Pedido>() { new Pedido(listProductos[1], 3), new Pedido(listProductos[3], 3) };
             List<Pedido> list2 = new List<Pedido>() { new Pedido(listProductos[5], 3), new Pedido(listProductos[4], 2), new Pedido(listProductos[6], 5) };
@@ -69,6 +70,29 @@ namespace Entidades
 
         }
 
+        /// <summary>
+        /// get del atributo estatico del nombre del negocio
+        /// </summary>
+       public static string Nombre
+        {
+            get
+            {
+                return nombre;
+            }
+        }
+
+
+        /// <summary>
+        /// get los atributos estaticos del negocio relacionados a la direccion
+        /// </summary>
+        public static string Direccion
+        {
+            get
+            {
+                return Negocio.calle + Negocio.numero + Negocio.codigoPostal;
+            }
+
+        }
 
 
 
@@ -78,8 +102,9 @@ namespace Entidades
 
 
 
-
-
+        /// <summary>
+        /// get y set de la List de objetos de tipo Cliente 
+        /// </summary>
         public static List<Cliente> ListClientes
         {
             set { listClientes = value; }
@@ -87,17 +112,28 @@ namespace Entidades
 
         }
 
+        /// <summary>
+        /// get y set de la List de objetos de tipo Producto 
+        /// </summary>
         public static List<Producto> ListProductos
         {
             get { return Negocio.listProductos; }
         }
 
+
+        /// <summary>
+        /// get y set de la List de objetos de tipo Empleado 
+        /// </summary>
         public static List<Empleado> ListEmpleados
         {
             get { return Negocio.listEmpleados; }
 
         }
 
+
+        /// <summary>
+        /// get y set de la List de objetos de tipo Venta 
+        /// </summary>
         public static List<Venta> ListVentas
         {
             get { return ventas; }
@@ -105,7 +141,11 @@ namespace Entidades
         }
 
 
-
+        /// <summary>
+        /// Agrega un nuevo cliente a la lista estatica de Clientes
+        /// </summary>
+        /// <param name="nuevoCliente"></param>
+        /// <returns></returns>
         public static List<Cliente> agregarCliente(Cliente nuevoCliente)
         {
             if (nuevoCliente != null)
@@ -115,6 +155,11 @@ namespace Entidades
         }
 
 
+        /// <summary>
+        /// Agrega un nueva venta a la lista estatica de Ventas
+        /// </summary>
+        /// <param name="nuevaVenta"></param>
+        /// <returns></returns>
         public static List<Venta> agregarVenta(Venta nuevaVenta)
         {
             Cliente comprador;
@@ -130,6 +175,12 @@ namespace Entidades
             return Negocio.ventas;
         }
 
+
+        /// <summary>
+        /// Agrega un nuevo empleado a la lista estatica de empleados
+        /// </summary>
+        /// <param name="nuevoEmpleado"></param>
+        /// <returns></returns>
         public static List<Empleado> agregarEmpleado(Empleado nuevoEmpleado)
         {
             if (nuevoEmpleado != null)
@@ -137,34 +188,9 @@ namespace Entidades
             return Negocio.listEmpleados;
         }
 
-        //public static Cliente getUltimoCliente()
-        //{
-        //    if (clientes.Count() > 0)
-        //        return clientes.Peek();
-        //    else
-        //        return null;
-        //}
+      
 
-
-
-        public static Empleado validarIngreso(string user, string password)
-        {
-
-            Empleado empleadoAux;
-            for (int i = 0; i < ListEmpleados.Count; i++)
-            {
-                empleadoAux = listEmpleados[i];
-                if (empleadoAux.User == user)
-                {
-                    if (empleadoAux.validarPassword(password))
-                    {
-                        return empleadoAux;
-
-                    }
-                }
-            }
-            return null;
-        }
+      
 
 
         /// <summary>
@@ -184,6 +210,13 @@ namespace Entidades
 
         }
 
+
+        /// <summary>
+        /// Valida que el cliente tenga la igual o mayor cantidad de plata disponible que el precio pasado por parametro
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <param name="precio"></param>
+        /// <returns>True si se cumple la condicion, False si no se cumple</returns>
         private static bool validarCliente(Cliente cliente, float precio)
         {
             if (cliente.PlataDisponible >= precio)
@@ -194,48 +227,12 @@ namespace Entidades
 
         }
 
-        //public static bool Vender(Producto producto, int cantidad)
-        //{
-
-        //    Producto prodAux = validarStock(producto, cantidad);
-        //    if (prodAux != null)
-        //    {
-        //        prodAux.Cantidad=prodAux - 1;
-        //        return true;
-        //    }
-        //    return false;
-
-        //}
-
-
-        //public static string getDescripcion(int id)
-        //{
-
-        //    foreach (Producto prod in Negocio.ListProductos)
-        //    {
-        //        if (prod.Id == id)
-        //        {
-        //            return prod.Detalle;
-        //        }
-        //    }
-        //    return null;
-        //}
-
-
-
-        //public static Producto editarProductoDeStock(int id, string nombre, float precio, TipoProducto tipo, Mascota paraMascota,
-        //    int cantidad, string detalle)
-        //{
-        //    Producto productoEdit = buscarProducto(id);
-        //    if (productoEdit != null)
-        //    {
-        //        productoEdit.EditarProducto(nombre, precio, tipo, paraMascota, cantidad, detalle);
-
-        //    }
-        //    return productoEdit;
-
-        //}
-
+      
+        /// <summary>
+        /// Busca en la lista estatica de productos un producto por su id y si lo encuentra, lo borra 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentra o el producto editado</returns>
         public static Producto borrarProductoDeStock(int id)
         {
             Producto productoEdit = buscarProducto(id);
@@ -251,7 +248,11 @@ namespace Entidades
         }
 
 
-
+        /// <summary>
+        /// Busca en la lista estatica de productos un producto por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentro o el producto </returns>
         public static Producto buscarProducto(int id)
         {
             Producto prodAux;
@@ -271,6 +272,11 @@ namespace Entidades
         }
 
 
+        /// <summary>
+        /// Busca en la lista estatica de productos un producto por su nombre
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentro o el producto </returns>
         public static Producto buscarProductoPorNombre(string nombre)
         {
             Producto prodAux;
@@ -290,13 +296,22 @@ namespace Entidades
         
 
  
-
+        /// <summary>
+        /// Cuenta la cantidad de productos que hay en la lista estatica de objetos de tipo Producto
+        /// </summary>
+        /// <returns>int: la cantidad de productos</returns>
         public static int getCantidadProductos()
         {
             int cant = Negocio.ListProductos.Count();
             return cant;
         }
 
+
+        /// <summary>
+        /// Busca en la lista estatica de clientes un cliente por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentro o el cliente </returns>
         public static Cliente buscarCliente(int id)
         {
             Cliente clienteAux;
@@ -313,6 +328,12 @@ namespace Entidades
             return null;
         }
 
+
+        /// <summary>
+        /// Busca en la lista estatica de clientes un cliente por su nombre
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <returns>null si no lo encuentro o el cliente </returns>
         public static Cliente buscarClientePorNombre(string nombre)
         {
             Cliente clienteAux;
@@ -329,21 +350,13 @@ namespace Entidades
             return null;
         }
 
-        //public static void restarStock(Pedido pedido)
-        //{
-        //    Producto prodComprado = pedido.ProductoComprado;
-        //    int cantidad = pedido.Cantidad;
-        //    Producto prodAux;
-        //    for(int i=0; i<ListProductos.Count(); i++)
-        //    {
-        //        prodAux = listProductos[i];
-        //        if (prodComprado == prodAux)
-        //        {
-        //            prodAux.Cantidad=prodAux - cantidad;
-        //        }
-        //    }
-        //}
 
+
+        /// <summary>
+        /// Busca en la lista estatica de empleados un empleado por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentro o el empleado </returns>
         public static Empleado buscarEmpleado(int id)
         {
             Empleado auxEmpleado;
@@ -358,6 +371,13 @@ namespace Entidades
             return null;
         }
 
+
+
+        /// <summary>
+        /// Busca en la lista estatica de empleados un empelado por su id y lo elimina
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentra o el empleado eliminado </returns>
         public static Empleado borrarEmpleado(int id)
         {
             Empleado auxEmpleado;
@@ -367,12 +387,25 @@ namespace Entidades
                 if (auxEmpleado.Id == id)
                 {
                     ListEmpleados.Remove(auxEmpleado);
+                    return auxEmpleado;
                 }
             }
             return null;
 
         }
 
+
+        /// <summary>
+        /// busca al empleado por su id (valor pasado por parametro) y edita sus atributos con los otros valores
+        /// pasados por parametro
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="telefono"></param>
+        /// <param name="fecha"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public static Empleado editarEmpleado(int id, string nombre, string apellido, long telefono, DateTime fecha,
             string user)
         {
@@ -385,6 +418,12 @@ namespace Entidades
             return editEmpleado;
         }
 
+
+        /// <summary>
+        /// Busca en la lista estatica de ventas una venta por su id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>null si no lo encuentro o la venta </returns>
         public static Venta buscarVenta(int id)
         {
             Venta auxVenta;
@@ -400,9 +439,65 @@ namespace Entidades
             return null;
         }
 
+
+        /// <summary>
+        /// Agrega un producto a la lista estatica de productos
+        /// </summary>
+        /// <param name="prod"></param>
         public static void agregarProducto(Producto prod)
         {
             ListProductos.Add(prod);
+        }
+
+        public static int cantidadVentas()
+        {
+            return ListVentas.Count;
+        }
+
+
+        /// <summary>
+        /// Busca en la lista estatica de empleados un empleado por su nombre de usuario
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>null si no lo encuentro o el empleaedo </returns>
+        public static Empleado buscarXusuario(string user)
+        {
+            Empleado aux = null;
+            string contra;
+            for (int i = 0; i < ListEmpleados.Count; i++)
+            {
+                aux = listEmpleados[i];
+                contra = aux.User;
+                if (contra == user)
+                {
+                    break;
+                }
+
+
+
+            }
+            return aux;
+        }
+
+        /// <summary>
+        /// Busca en la lista estatica de empleados un empleado por su nombre de usuario pasado por parametro y valida
+        /// que la contrasena sea la misma
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="psw"></param>
+        /// <returns>El empleado si cumplio la condiciones y sino null </returns>
+        public static Empleado validarIngreso2(string user, string psw)
+        {
+            Empleado aux = buscarXusuario(user);
+            if (aux != null && string.Compare(aux.Password, aux.Password)==0)
+            {
+                return aux;
+            }
+            else
+            {
+                return null;
+            }
+
         }
     }
 }

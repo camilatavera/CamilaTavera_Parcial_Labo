@@ -25,11 +25,16 @@ namespace PetShop
         }
 
          Producto ProductoSeleccionado
-        {
+         {
             get { return productoSeleccionado; }
             set { productoSeleccionado = value; }
-        }
+         }
 
+        /// <summary>
+        /// cargo el DataGridView y habilito los botones correspondientes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmCarrito_Load(object sender, EventArgs e)
         {
             num_cantidad.Enabled = false;
@@ -42,6 +47,12 @@ namespace PetShop
             }
         }
 
+        /// <summary>
+        /// Al seleccion un producto en el combo box, cargo en el numeric up down 
+        /// la cantidad que hay de stock
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmb_producto_SelectionChangeCommitted(object sender, EventArgs e)
         {
             num_cantidad.Enabled = true;
@@ -58,6 +69,11 @@ namespace PetShop
             }
         }
 
+        /// <summary>
+        /// si el stock de producto es mayor a cero,habilito el boton aceptar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void num_cantidad_ValueChanged(object sender, EventArgs e)
         {
             if (num_cantidad.Value > 0)
@@ -66,6 +82,12 @@ namespace PetShop
             }
         }
 
+        /// <summary>
+        /// Si se cumplen las condiciones necesarias, agrego el product a la fila de
+        /// pedidos
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             Pedido pedidoNuevo;

@@ -11,36 +11,49 @@ namespace Entidades
         int id;
         string user;
         string password;
-        bool esAdmin;
+               
 
         static int idIncremental;
 
+
+        /// <summary>
+        /// Inicializacion del atributo static idIncremental en 0
+        /// </summary>
         static Empleado()
         {
             idIncremental = 0;
         }
 
+
+        /// <summary>
+        /// get y set del atributo idIncremental
+        /// </summary>
         protected override int IdIncremental
         {
             get { return idIncremental; }
             set { idIncremental = value; }
         }
 
+
+        /// <summary>
+        /// Incrementa un digito el atributo estatico idIncremental
+        /// </summary>
+        /// <returns>valor del atributo estatico IdIncremental</returns>
         protected override int getNuevoId()
         {
             IdIncremental += 1;
             return IdIncremental;
         }
 
+
+        /// <summary>
+        /// get del atributo id
+        /// </summary>
         public int Id
         {
             set { id = value; }
             get { return id; }
         }
-
-
-
-
 
         public Empleado(string nombre, string apellido, long telefono, DateTime fechaNacimiento,
             string user, string password)
@@ -49,13 +62,15 @@ namespace Entidades
             this.Id = getNuevoId();
             this.User = user;
             this.Password = password;
-            this.EsAdmin = false;
-
+           
         }
 
         #region get/set
 
 
+        /// <summary>
+        /// get y set del atributo user
+        /// </summary>
         public string User
         {
 
@@ -69,44 +84,52 @@ namespace Entidades
             get { return user; }
         }
 
+
+        /// <summary>
+        /// get y set del atributo password
+        /// </summary>
         public string Password
         {
             set
             {
-                if (!value.Contains(" "))
-                {
-                    password = value;
-                }
+                password = value.Trim();
             }
             get { return password; }
 
         }
-        public bool EsAdmin
-        {
-            set { esAdmin = value; }
-            get { return esAdmin; }
-
-        }
-
-
-
-
-
-
-
-
         #endregion
 
-        public override string Mostrar()
+
+
+        /// <summary>
+        /// Muestra los detalles del empleado
+        /// </summary>
+        /// <returns>string con los detalles</returns>
+        public override string mostrarDetalleFacturacion()
         {
-            return "Seguir";
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("DATOS VENDEDOR");
+            sb.AppendLine("------------------------------------------ \n");
+            sb.AppendLine(base.mostrarDetalleFacturacion());
+
+            return sb.ToString();
         }
 
-        public virtual string EsAdminStr()
+
+        /// <summary>
+        /// Devuelve el cargo del objeto segun como se instancio
+        /// </summary>
+        /// <returns>string cargo</returns>
+        public virtual string Cargo()
         {
-            return "No";
+            return "Empleado";
         }
 
+
+        /// <summary>
+        /// Calcula el sueldo del objeto segun como se instancio
+        /// </summary>
+        /// <returns>float sueldo</returns>
         public virtual float CalcularSueldo()
         {
             int cant = calcularCantidadVentas();
@@ -119,6 +142,11 @@ namespace Entidades
             return sueldo;
         }
 
+
+        /// <summary>
+        /// Calcula la cantidad de ventas que realizo el vendedor
+        /// </summary>
+        /// <returns></returns>
         public int calcularCantidadVentas()
         {
             Venta ventaAux;
@@ -134,29 +162,14 @@ namespace Entidades
             return cont;
         }
 
-        //NOOOOOOOOOOO, es del admin
-        //public List<Empleado> agregarEmpleado(Empleado auxEmpleado)
-        //{
-        //    Negocio.agregarEmpleado(auxEmpleado);
-        //    return Negocio.ListEmpleados;
-        //}
-
-        public bool validarPassword(string password)
-        {
-
-            if (this.password == password)
-            {
-                return true;
-            }
-            else
-                return false;
-
-        }
+      
 
 
-
-
-
+        /// <summary>
+        /// Agrega un cliente a la lista
+        /// </summary>
+        /// <param name="nuevoCliente"></param>
+        /// <returns>La lista con todos los clientes</returns>
         public List<Cliente> agregarCliente(Cliente nuevoCliente)
         {
             if (nuevoCliente != null)
@@ -165,6 +178,16 @@ namespace Entidades
             return Negocio.ListClientes;
         }
 
+
+        /// <summary>
+        /// Instancia un nuevo cliente y lo agrega a la lista
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="telefono"></param>
+        /// <param name="fechaNacimiento"></param>
+        /// <param name="plataDisponible"></param>
+        /// <returns>El nuevo cliente</returns>
         public Cliente AltaCliente(string nombre, string apellido, long telefono, DateTime fechaNacimiento, float plataDisponible)
         {
             Cliente auxCliente = new Cliente(nombre, apellido, telefono, fechaNacimiento, plataDisponible);
@@ -172,31 +195,39 @@ namespace Entidades
             return auxCliente;
         }
 
+        /// <summary>
+        /// busca la lista estatica de clientes
+        /// </summary>
+        /// <returns>lista de clientes</returns>
         public List<Cliente> verClientes()
         {
             return Negocio.ListClientes;
         }
 
-        //public static bool operator ==(Empleado empleado1, Empleado empleado2)
-        //{
-        //    if (empleado1 == null || empleado2 == null)
-        //        return false;
-        //    if(empleado1.id == empleado2.id)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
 
-        //public bool static operator !=(Empleado empleado1, Empleado empleado2)
-        //{
-        //    return !(empleado1 == empleado2);
-        //}
+        /// <summary>
+        /// edita los valores del empleado con los valores pasados como parametro
+        /// </summary>
+        /// <param name="nombre"></param>
+        /// <param name="apellido"></param>
+        /// <param name="telefono"></param>
+        /// <param name="fechaNacimiento"></param>
+        /// <param name="plataDisponible"></param>
+        public Empleado editarEmpleado(string nombre, string apellido, long telefono, DateTime fechaNacimiento, string user)
+        {
 
-      
+            this.Nombre = nombre;
+            this.Apellido = apellido;
+            this.Telefono = telefono;
+            this.FechaNacimiento = fechaNacimiento;
+            this.User = user;
+
+            return this;
+                
+            
+
+        }
+
 
 
 

@@ -15,26 +15,17 @@ namespace PetShop
 
     {
 
-        static int indexRow;
-        static int idActual;
+        
         public FrmClientes()
         {
             InitializeComponent();
         }
 
-
-        public int IndexRow
-        {
-            get { return indexRow; }
-            set { indexRow = value; }
-        }
-
-        public int IdActual
-        {
-            get { return idActual; }
-            set { idActual = value; }
-        }
-        
+        /// <summary>
+        /// Cargo los clientes en el DataGridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmClientes_Load(object sender, EventArgs e)
         {
             Cliente clienteAux;
@@ -46,9 +37,14 @@ namespace PetShop
             }
         }
 
+        /// <summary>
+        /// Cargo los datos de la fila seleccionada en los text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            list_pedidos.Clear();
+            list_pedidos.Items.Clear();
             Cliente clienteActual;
 
             IndexRow = e.RowIndex;
@@ -81,25 +77,35 @@ namespace PetShop
                 
             }
 
-        }
 
-        private void dgv_clientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
         }
 
+        /// <summary>
+        /// Permite agregar un nuevo cliente y vacia los text box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_agregar_Click(object sender, EventArgs e)
         {
             IndexRow = dgv_clientes.Rows.Count - 1;
+            IdActual = 0;
 
             this.txt_nombre.Text = "";
             this.txt_apellido.Text = "";
             this.txt_telefono.Text = "";
             //this.box_fecha.Value;
             this.num_plataDisponible.Value = 0;
-            list_pedidos.Clear();
+            list_pedidos.Items.Clear();
         }
 
+
+        /// <summary>
+        /// Si se apreto el boton agregar cliente, crea un nuevo cliente
+        /// sino edita los valores del cliente seleccionado en el data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_stock_Click(object sender, EventArgs e)
         {
             string nombre = txt_nombre.Text;
@@ -115,10 +121,14 @@ namespace PetShop
                 long.TryParse(txt_telefono.Text, out telefono) && plataDisponible > 0)
             {
                 
-                if (IndexRow == dgv_clientes.Rows.Count - 1)
+                if (IdActual==0)
                 {
                     auxCliente = new Cliente(nombre, apellido, telefono, fecha, plataDisponible);
                     Negocio.agregarCliente(auxCliente);
+                    dgv_clientes.Rows.Add(auxCliente.Id, auxCliente.Nombre, auxCliente.Apellido, auxCliente.CantidadCompras,
+                        auxCliente.PlataDisponible);
+
+                    FrmInicio.playerBeep.Play();
                 }
                 else
                 {
@@ -126,20 +136,20 @@ namespace PetShop
                     if (auxCliente != null)
                     {
                         auxCliente.EditarCliente(nombre, apellido, telefono, fecha, plataDisponible);
+                        dgv_clientes.Rows.Insert(IndexRow, auxCliente.Id, auxCliente.Nombre, auxCliente.Apellido, auxCliente.CantidadCompras,
+                        auxCliente.PlataDisponible);
+
+                        FrmInicio.playerBeep.Play();
                     }
                 }
             }
-
-            
-
-        }
-
-        private void btn_borrar_Click(object sender, EventArgs e)
-        {
-            if(IndexRow != dgv_productos.RowCount - 1)
+            else
             {
-                
+                FrmInicio.playerError.Play();
             }
+
         }
+
+      
     }
 }

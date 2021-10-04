@@ -14,27 +14,12 @@ namespace PetShop
     public partial class FrmStockLimpieza : FrmStockBase
     {
 
-        static int indexRow;
-        static int idActual;
-
         public FrmStockLimpieza()
         {
             InitializeComponent();
         }
 
-        public int IndexRow
-        {
-            get { return indexRow; }
-            set { indexRow = value; }
-
-        }
-
-        public int IdActual
-        {
-            get { return idActual; }
-            set { idActual = value; }
-
-        }
+        
         
 
         private void FrmStockLimpieza_Load(object sender, EventArgs e)
@@ -46,7 +31,7 @@ namespace PetShop
             for (int i = 0; i < Negocio.ListProductos.Count(); i++)
             {
                 prodAux = Negocio.ListProductos[i];
-                if (prodAux is Limpieza)
+                if (prodAux is Farmacia)
                 {
                     this.dgv_productos.Rows.Add(prodAux.Id, prodAux.Nombre, prodAux.Cantidad,
                     prodAux.Precio);
@@ -91,33 +76,86 @@ namespace PetShop
                         prodEditado.Cantidad, prodEditado.Precio);
 
                 }
+                FrmInicio.playerBeep.Play();
+            }
+            else
+            {
+                FrmInicio.playerError.Play();
             }
         }
         
 
     
 
-        private void btn_agregar_Click(object sender, EventArgs e)
+        protected override void btn_agregar_Click(object sender, EventArgs e)
         {
-
-                this.txt_producto.Text = "";
-                this.num_precio.Value = 0;
-                this.num_cantidad.Value = 0;
-                this.cmb_mascota.SelectedIndex = -1;
-                this.cmb_extra.SelectedIndex = -1;
-                this.checkBox1.Checked = false;
-
-                IndexRow = dgv_productos.RowCount - 1;
+            base.btn_agregar_Click(sender, e);
+            IndexRow = dgv_productos.RowCount - 1;
 
         }
 
         private void btn_borrar_Click(object sender, EventArgs e)
         {
 
+            Producto actualProducto;
+            if (IdActual != 0)
+            {
+                Negocio.borrarProductoDeStock(IdActual);
+                dgv_productos.Rows.RemoveAt(IndexRow);
+
+                IndexRow = dgv_productos.CurrentRow.Index;
+
+                if (dgv_productos[col_id.Index, IndexRow].Value == null)
+                {
+                    IdActual = 0;
+                }
+                else
+                {
+                    IdActual = (int)dgv_productos[col_id.Index, IndexRow].Value;
+                    actualProducto = IdActual;
+                    if (actualProducto != null)
+                    {
+                        this.txt_producto.Text = actualProducto.Nombre.ToString();
+                        this.num_precio.Value = (decimal)actualProducto.Precio;
+                        this.num_cantidad.Value = (decimal)actualProducto.Cantidad;
+                        this.cmb_mascota.SelectedItem = actualProducto.ParaMascota;
+                        this.cmb_extra.SelectedItem = ((Limpieza)actualProducto).TipoDeLimpieza;
+                        this.checkBox1.Checked = ((Limpieza)actualProducto).EsHipoalergenico;
+                    }
+                }
+            }
+
         }
 
         private void dgv_productos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
+            Producto actualProducto;
+
+            IndexRow = e.RowIndex;
+            if (dgv_productos[col_id.Index, indexRow].Value != null)
+            {
+                IdActual = (int)dgv_productos[col_id.Index, indexRow].Value;
+
+                actualProducto = Negocio.buscarProducto(IdActual);
+
+                this.txt_producto.Text = actualProducto.Nombre;
+                this.num_precio.Value = (decimal)actualProducto.Precio;
+                this.num_cantidad.Value = (decimal)actualProducto.Cantidad;
+                this.cmb_mascota.SelectedItem = actualProducto.ParaMascota;
+                this.cmb_extra.SelectedItem = ((Limpieza)actualProducto).TipoDeLimpieza;
+                this.checkBox1.Checked = ((Limpieza)actualProducto).EsHipoalergenico;
+            }
+            else
+            {
+                IdActual = 0;
+                this.txt_producto.Text = "";
+                this.num_precio.Value = 0;
+                this.num_cantidad.Value = 0;
+                this.cmb_mascota.SelectedIndex = -1;
+                this.cmb_extra.SelectedIndex = -1;
+                this.checkBox1.Checked = false;
+            }
 
         }
     }

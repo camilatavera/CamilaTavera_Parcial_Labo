@@ -22,6 +22,8 @@ namespace Entidades
             this.FechaNacimiento = fechaNacimiento;
         }
 
+
+
         protected abstract int IdIncremental { set; get; }
         protected abstract int getNuevoId();
 
@@ -52,7 +54,19 @@ namespace Entidades
             get { return fechaNacimiento; }
         }
 
-        public abstract string Mostrar();
+
+        public virtual string mostrarDetalleFacturacion()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Nombre: {this.Nombre}");
+            sb.AppendLine($"Apellido: {this.Apellido}");
+            sb.AppendLine($"Telefono: {this.Telefono}");
+            sb.AppendLine($"Fecha de nacimiento: {this.FechaNacimiento}");
+
+            return sb.ToString();
+        }
+
+
 
 
     }

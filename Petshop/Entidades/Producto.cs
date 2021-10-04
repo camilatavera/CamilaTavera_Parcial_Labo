@@ -26,6 +26,8 @@ namespace Entidades
 
         }
 
+
+
         static Producto()
         {
             idIncremental = 0;
@@ -109,6 +111,22 @@ namespace Entidades
             return prod.Cantidad - cantidad;
         }
 
-      
+        public static implicit operator Producto(int id)
+        {
+            return Negocio.buscarProducto(id);
+        }
+
+        public virtual string mostrarDetalleProducto()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Id producto: {Id}");
+            sb.AppendLine($"Nombre: {Nombre}");
+            sb.AppendLine($"Precio por unidad: {Precio}");
+            return sb.ToString();
+
+        }
+       
+
+
     }
 }

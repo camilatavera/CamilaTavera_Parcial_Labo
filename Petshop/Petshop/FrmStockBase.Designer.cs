@@ -44,10 +44,16 @@ namespace PetShop
             this.btn_stock = new System.Windows.Forms.Button();
             this.btn_borrar = new System.Windows.Forms.Button();
             this.btn_agregar = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_minimizar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).BeginInit();
             this.panel_datos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_cantidad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_precio)).BeginInit();
             this.SuspendLayout();
+            // 
+            // panel_barra
+            // 
+            this.panel_barra.Size = new System.Drawing.Size(925, 35);
             // 
             // panel_datos
             // 
@@ -225,6 +231,7 @@ namespace PetShop
             this.btn_agregar.TabIndex = 21;
             this.btn_agregar.Text = "Agregar Nuevo";
             this.btn_agregar.UseVisualStyleBackColor = true;
+            this.btn_agregar.Click += new System.EventHandler(this.btn_agregar_Click);
             // 
             // FrmStockBase
             // 
@@ -237,10 +244,13 @@ namespace PetShop
             this.Controls.Add(this.panel_datos);
             this.Name = "FrmStockBase";
             this.Text = "FrmStockBase";
+            this.Controls.SetChildIndex(this.panel_barra, 0);
             this.Controls.SetChildIndex(this.panel_datos, 0);
             this.Controls.SetChildIndex(this.btn_stock, 0);
             this.Controls.SetChildIndex(this.btn_borrar, 0);
             this.Controls.SetChildIndex(this.btn_agregar, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.btn_minimizar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btn_cerrar)).EndInit();
             this.panel_datos.ResumeLayout(false);
             this.panel_datos.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_cantidad)).EndInit();

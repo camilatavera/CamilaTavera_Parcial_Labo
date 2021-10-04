@@ -12,16 +12,23 @@ namespace Entidades
         public Administrador(string nombre, string apellido, long telefono, DateTime fechaNacimiento,
             string user, string password)
              : base(nombre, apellido, telefono, fechaNacimiento, user, password)
+        { }
+
+
+        /// <summary>
+        /// Devuelve el cargo del objeto segun como se instancio
+        /// </summary>
+        /// <returns>string cargo</returns>
+        public override string Cargo()
         {
-            this.EsAdmin = true;
+            return "Administrador";
         }
 
 
-        public override string EsAdminStr()
-        {
-            return "Si";
-        }
-
+        /// <summary>
+        /// Calcula el sueldo del objeto segun como se instancio
+        /// </summary>
+        /// <returns>float sueldo</returns>
         public override float CalcularSueldo()
         {
             float sueldo = base.CalcularSueldo();
@@ -31,19 +38,6 @@ namespace Entidades
 
 
 
-        public override string Mostrar()
-        {
-            return "jeje";
-        }
-
-        
-
-
-
-
-
-
-
-
+     
     }
 }

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Entidades;
+using System.Media;
 
 namespace PetShop
 {
@@ -18,6 +19,8 @@ namespace PetShop
         static List<Pedido> pedido_final;
         static int total;
         static int indexRow;
+
+        SoundPlayer Player = new SoundPlayer();
         public FrmVender()
         {
             InitializeComponent();
@@ -29,6 +32,7 @@ namespace PetShop
             copyStock = new List<Producto>(Negocio.ListProductos);
             pedidoActual = new Stack<Pedido>();
             pedido_final = new List<Pedido>();
+            
 
         }
 
@@ -58,15 +62,23 @@ namespace PetShop
 
         }
 
+        /// <summary>
+        /// Si se dan las condiciones, me abre un nuevo carrito para agregar un pedido
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_agregar_Click(object sender, EventArgs e)
         {
+            FrmInicio.playerError.Play();
             Pedido pedidoIngresado;
+            
 
             FrmCarrito frmCarrito = new FrmCarrito();
             frmCarrito.ShowDialog();
-
+            
             if (frmCarrito.DialogResult == DialogResult.OK)
             {
+                
                 pedidoIngresado = pedidoActual.Peek();
 
                 this.dgv_carrito.Rows.Add(pedidoIngresado.ProductoComprado.Nombre, pedidoIngresado.Cantidad,
@@ -76,19 +88,30 @@ namespace PetShop
                 txt_monto.Text = Total.ToString();
                 IndexRow = dgv_carrito.CurrentRow.Index;
                 
+
                 frmCarrito.Close();
+                
+
 
             }
+
             else if (frmCarrito.DialogResult == DialogResult.Cancel)
             {
                 frmCarrito.Close();
+                
             }
         }
 
+        /// <summary>
+        /// Borra un pedido del data grid view
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_borrar_Click(object sender, EventArgs e)
         {
-            dgv_carrito.Rows.Clear();
+            
             Producto productoEnCopy;
+           
             if (IndexRow != dgv_carrito.RowCount - 1)
             {
 
@@ -102,6 +125,7 @@ namespace PetShop
                 }
                 Total -= (int)dgv_carrito[col_precio.Index, IndexRow].Value;
                 dgv_carrito.Rows.RemoveAt(IndexRow);
+                this.txt_monto.Text = Total.ToString();
 
             }
 
@@ -111,6 +135,12 @@ namespace PetShop
             }
         }
 
+
+        /// <summary>
+        /// carga los clientes en el combo box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void FrmVender_Load(object sender, EventArgs e)
         {
             Cliente aux;
@@ -121,6 +151,13 @@ namespace PetShop
             }
         }
 
+
+        /// <summary>
+        /// Cuando se selecciona un cliente, se evalua si le alcanza la plata y si es asi se habilita el
+        /// boton "Vender"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmb_cliente_SelectedIndexChanged(object sender, EventArgs e)
         {
             Cliente comprador = Negocio.buscarClientePorNombre(cmb_cliente.SelectedItem.ToString());
@@ -159,10 +196,13 @@ namespace PetShop
                 }
                 NuevaVenta = pedido_final;
                 NuevaVenta.agregarVendedorComprador(comprador.Id, FrmInicio.UsuarioActual);
+                FrmInicio.playerBeep.Play();
                 this.Close();
 
             }
 
         }
+
+       
     }
 }
